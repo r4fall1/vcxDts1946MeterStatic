@@ -1,4 +1,4 @@
-fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterStatics@v0.0.3/body.html")
+fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterStatics@v0.0.4/body.html")
     .then(stream => stream.text())
     .then(text => define(text));
 
