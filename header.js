@@ -1,9 +1,9 @@
-fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterStatics@v0.0.1/body.html")
+fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterStatics@v0.0.3/body.html")
     .then(stream => stream.text())
     .then(text => define(text));
 
 function define(html) {
-    class XCounter extends HTMLElement {
+    class XBody extends HTMLElement {
         set value(value) {
             this._value = value;
             this.valueElement.innerText = this._value;
@@ -29,7 +29,7 @@ function define(html) {
         }
     }
 
-    customElements.define('x-counter', XCounter);
+    customElements.define('x-body', XBody);
 }
 
 setInterval(updateValues, 2000);
