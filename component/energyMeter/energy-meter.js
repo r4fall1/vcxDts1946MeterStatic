@@ -4,28 +4,11 @@ fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterWeb@v0/component/energ
 
 function define(html) {
     class XBody extends HTMLElement {
-        set value(value) {
-            this._value = value;
-            this.valueElement.innerText = this._value;
-        }
-
-        get value() {
-            return this._value;
-        }
-
         constructor() {
             super();
-            this._value = 0;
 
             let shadow = this.attachShadow({mode: 'open'});
             shadow.innerHTML = html;
-
-            this.valueElement = shadow.querySelector('p');
-            let incrementButton = shadow.querySelectorAll('button')[1];
-            let decrementButton = shadow.querySelectorAll('button')[0];
-
-            incrementButton.onclick = () => this.value++;
-            decrementButton.onclick = () => this.value--;
         }
 
         updateHtmlField(id, value) {
@@ -89,6 +72,6 @@ function define(html) {
     customElements.define('x-body', XBody);
 
     let meter = document.createElement('x-body');
-    setInterval(meter.updateValues(), 5000)
+    setInterval(meter.updateValues, 5000)
     meter.updateValues()
 }
