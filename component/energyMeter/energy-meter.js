@@ -1,4 +1,4 @@
-fetch("https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterWeb@v0.0.8/component/energyMeter/template.html")
+fetch("template.html")
     .then(stream => stream.text())
     .then(html => define(html));
 

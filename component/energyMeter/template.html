@@ -1,64 +1,72 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterWeb@v0.0.8/component/energyMeter/style.css">
-<table class="styled-table">
-    <thead>
-    <tr>
-        <th>Data description</th>
-        <th>Value</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Water temperature</td>
-        <td><span id="waterTemperature">0.00</span> <span>&#176;</span>C</td>
-    </tr>
-    <tr>
-        <td>Total heater operating time</td>
-        <td><span id="heaterOperatingTime">0</span></td>
-    </tr>
-    <tr>
-        <td>Actual heater state</td>
-        <td><span id="heaterStatus">OFF</span></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <div class="pt-3 pb-2 d-flex align-items-center">
+        <span class="display-5 me-3">Heater</span>
+        <button id="heaterTestButton" type="button" class="btn btn-success mx-1 mt-2" style="min-width: 100px;">Test
+        </button>
+        <button id="heaterTurnOffButton" type="button" class="btn btn-danger mx-1 mt-2" style="min-width: 100px;">Turn
+            OFF
+        </button>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Data description</th>
+            <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Water temperature</td>
+            <td><span id="waterTemperature">0.00</span> <span>&#176;</span>C</td>
+        </tr>
+        <tr>
+            <td>Total heater operating time</td>
+            <td><span id="heaterOperatingTime">0</span></td>
+        </tr>
+        <tr>
+            <td>Actual heater state</td>
+            <td><span id="heaterStatus">OFF</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <div class="container">
-    <button class="btn" onclick="heaterTest()">Heater test</button>
+    <div class="pt-3 pb-2 d-flex align-items-center">
+        <span class="display-5 me-3">Energy meter</span>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Data description</th>
+            <th scope="col" colspan="3">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>A phase voltage</td>
+            <td><span id="phase1Voltage">0.0</span> V</td>
+        </tr>
+        <tr>
+            <td>B phase voltage</td>
+            <td><span id="phase2Voltage">0.0</span> V</td>
+        </tr>
+        <tr>
+            <td>C phase voltage</td>
+            <td><span id="phase3Voltage">0.0</span> V</td>
+        </tr>
+        <tr>
+            <td>AB line voltage</td>
+            <td><span id="phase1ToPhase2Voltage">0.0</span> V</td>
+        </tr>
+        <tr>
+            <td>BC line voltage</td>
+            <td><span id="phase2ToPhase3Voltage">0.0</span> V</td>
+        </tr>
+        <tr>
+            <td>CA line voltage</td>
+            <td><span id="phase3ToPhase1Voltage">0.0</span> V</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div class="title">
-    Details:
-</div>
-<table class="styled-table">
-    <thead>
-    <tr>
-        <th>Data description</th>
-        <th>Value</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>A phase voltage</td>
-        <td><span id="phase1Voltage">0.0</span> V</td>
-    </tr>
-    <tr>
-        <td>B phase voltage</td>
-        <td><span id="phase2Voltage">0.0</span> V</td>
-    </tr>
-    <tr>
-        <td>C phase voltage</td>
-        <td><span id="phase3Voltage">0.0</span> V</td>
-    </tr>
-    <tr>
-        <td>AB line voltage</td>
-        <td><span id="phase1ToPhase2Voltage">0.0</span> V</td>
-    </tr>
-    <tr>
-        <td>BC line voltage</td>
-        <td><span id="phase2ToPhase3Voltage">0.0</span> V</td>
-    </tr>
-    <tr>
-        <td>CA line voltage</td>
-        <td><span id="phase3ToPhase1Voltage">0.0</span> V</td>
-    </tr>
-    </tbody>
-</table>
