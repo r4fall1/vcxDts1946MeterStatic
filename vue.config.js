@@ -1,12 +1,13 @@
 module.exports = {
+    publicPath: 'https://cdn.jsdelivr.net/gh/r4fall1/vcxDts1946MeterWeb@v1.1.1/prd/',
     configureWebpack: (config) => {
-        config.output.filename = '[name].[hash:8].js';
-        config.output.chunkFilename = '[name].[hash:8].js';
+        config.output.filename = '[name].js';
+        config.output.chunkFilename = '[name].js';
     },
     css: {
         extract: {
-            filename: '[name].[hash:8].css',
-            chunkFilename: '[name].[hash:8].css'
+            filename: '[name].css',
+            chunkFilename: '[name].css'
         }
     }
 }
