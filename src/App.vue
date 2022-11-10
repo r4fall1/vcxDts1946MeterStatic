@@ -36,6 +36,27 @@
                 <td><span>{{ energyMeter.totalPower | formatNumber }}</span> kW</td>
             </tr>
             <tr>
+                <td>Reactive power</td>
+                <td><span>{{ energyMeter.reactivePowerL1 | formatNumber }}</span> VAr</td>
+                <td><span>{{ energyMeter.reactivePowerL2 | formatNumber }}</span> VAr</td>
+                <td><span>{{ energyMeter.reactivePowerL3 | formatNumber }}</span> VAr</td>
+                <td><span>{{ energyMeter.totalReactivePower | formatNumber }}</span> VAr</td>
+            </tr>
+            <tr>
+                <td>Apparent power</td>
+                <td><span>{{ energyMeter.apparentPowerL1 | formatNumber }}</span> VA</td>
+                <td><span>{{ energyMeter.apparentPowerL2 | formatNumber }}</span> VA</td>
+                <td><span>{{ energyMeter.apparentPowerL3 | formatNumber }}</span> VA</td>
+                <td><span>{{ energyMeter.totalApparentPower | formatNumber }}</span> VA</td>
+            </tr>
+            <tr>
+                <td>Power factor</td>
+                <td><span>{{ energyMeter.powerFactorL1 | formatNumber }}</span></td>
+                <td><span>{{ energyMeter.powerFactorL2 | formatNumber }}</span></td>
+                <td><span>{{ energyMeter.powerFactorL3 | formatNumber }}</span></td>
+                <td><span>{{ energyMeter.totalPowerFactor | formatNumber }}</span></td>
+            </tr>
+            <tr>
                 <td>Frequency</td>
                 <td></td>
                 <td></td>
@@ -43,18 +64,32 @@
                 <td><span>{{ energyMeter.frequency | formatNumber }}</span> Hz</td>
             </tr>
             <tr>
-                <td>Imported energy</td>
+                <td>Imported active energy</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td><span>{{ energyMeter.importActiveEnergy | formatNumber }}</span> kWh</td>
             </tr>
             <tr>
-                <td>Exported energy</td>
+                <td>Exported active energy</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td><span>{{ energyMeter.exportActiveEnergy | formatNumber }}</span> kWh</td>
+            </tr>
+            <tr>
+                <td>Imported reactive energy</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span>{{ energyMeter.importReactiveEnergy | formatNumber }}</span> kVArh</td>
+            </tr>
+            <tr>
+                <td>Exported reactive energy</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span>{{ energyMeter.exportReactiveEnergy | formatNumber }}</span> kVArh</td>
             </tr>
             </tbody>
         </table>
@@ -80,6 +115,27 @@
         <div class="h-100" id="content">
             <div class="h-100" id="dashboard"></div>
         </div>
+        <div class="accordion" id="accordionButtons">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Navigation
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionButtons">
+                    <div class="accordion-body row">
+                        <div class="col">
+                            <button class="btn btn-sm btn-outline-secondary ms-2 me-2" type="button" v-on:click="goToSettingsPage">Settings</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-sm btn-outline-danger ms-2 me-2 float-end" type="button" v-on:click="goToUpdatePage">Update</button>
+                            <button class="btn btn-sm btn-outline-danger ms-2 me-2 float-end" type="button" v-on:click="restartModule">Restart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" style="height:50px;"></div>
     </div>
 </template>
 
@@ -108,10 +164,24 @@ export default {
                 powerL1: 0,
                 powerL2: 0,
                 powerL3: 0,
+                reactivePowerL1: 0,
+                reactivePowerL2: 0,
+                reactivePowerL3: 0,
+                totalReactivePower: 0,
+                apparentPowerL1: 0,
+                apparentPowerL2: 0,
+                apparentPowerL3: 0,
+                totalApparentPower: 0,
+                powerFactorL1: 0,
+                powerFactorL2: 0,
+                powerFactorL3: 0,
+                totalPowerFactor: 0,
                 totalPower: 0,
                 frequency: 0,
                 importActiveEnergy: 0,
-                exportActiveEnergy: 0
+                exportActiveEnergy: 0,
+                importReactiveEnergy: 0,
+                exportReactiveEnergy: 0
             }
         }
     },
@@ -172,6 +242,17 @@ export default {
     filters: {
         formatNumber(value) {
             return numeral(value).format('0.00');
+        }
+    },
+    methods: {
+        goToSettingsPage() {
+            window.location.href = '/params';
+        },
+        goToUpdatePage() {
+            window.location.href = '/update';
+        },
+        restartModule() {
+            window.location.href = '/restart';
         }
     }
 }
