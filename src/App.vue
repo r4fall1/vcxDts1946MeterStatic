@@ -115,7 +115,7 @@
         <div class="h-100" id="content">
             <div class="h-100" id="dashboard"></div>
         </div>
-        <div class="accordion" id="accordionButtons">
+        <div class="accordion pt-4" id="accordionButtons">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -125,11 +125,14 @@
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionButtons">
                     <div class="accordion-body row">
                         <div class="col">
-                            <button class="btn btn-sm btn-outline-secondary ms-2 me-2" type="button" v-on:click="goToSettingsPage">Settings</button>
+                            <button class="btn btn-sm btn-success ms-2 me-2" type="button" v-on:click="goToSettingsPage">Settings</button>
+                            <button class="btn btn-sm btn-outline-secondary ms-2 me-2" type="button" v-on:click="goToActualConfigPage">RAW config</button>
+                            <button class="btn btn-sm btn-outline-secondary ms-2 me-2" type="button" v-on:click="goToInfoPage">RAW device info</button>
+                            <button class="btn btn-sm btn-outline-secondary ms-2 me-2" type="button" v-on:click="goToEnergyValuesPage">RAW energy values</button>
                         </div>
                         <div class="col">
-                            <button class="btn btn-sm btn-outline-danger ms-2 me-2 float-end" type="button" v-on:click="goToUpdatePage">Update</button>
-                            <button class="btn btn-sm btn-outline-danger ms-2 me-2 float-end" type="button" v-on:click="restartModule">Restart</button>
+                            <button class="btn btn-sm btn-danger ms-2 me-2 float-end" type="button" v-on:click="goToUpdatePage">Update</button>
+                            <button class="btn btn-sm btn-danger ms-2 me-2 float-end" type="button" v-on:click="restartModule">Restart</button>
                         </div>
                     </div>
                 </div>
@@ -160,10 +163,10 @@ export default {
                 currentL1: 0,
                 currentL2: 0,
                 currentL3: 0,
-                currentTotal: 0,
                 powerL1: 0,
                 powerL2: 0,
                 powerL3: 0,
+                totalPower: 0,
                 reactivePowerL1: 0,
                 reactivePowerL2: 0,
                 reactivePowerL3: 0,
@@ -176,7 +179,6 @@ export default {
                 powerFactorL2: 0,
                 powerFactorL3: 0,
                 totalPowerFactor: 0,
-                totalPower: 0,
                 frequency: 0,
                 importActiveEnergy: 0,
                 exportActiveEnergy: 0,
@@ -186,7 +188,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('/config/actual')
+        axios.get('/actual-config')
                 .then(function (response) {
                     return response.data;
                 }).catch(function (error) {
@@ -228,16 +230,42 @@ export default {
     created: function () {
         const app = this;
         setInterval(function () {
-            axios.get('/energy-meter/get')
+            axios.get('/energy')
                     .then(function (response) {
                         return response.data;
                     }).catch(function (error) {
                 // eslint-disable-next-line no-console
                 console.log(error);
             }).then(body => {
-                app.energyMeter = body
+                app.energyMeter.voltageL1 = body.vL1
+                app.energyMeter.voltageL2 = body.vL2
+                app.energyMeter.voltageL3 = body.vL3
+                app.energyMeter.currentL1 = body.cL1
+                app.energyMeter.currentL2 = body.cL2
+                app.energyMeter.currentL3 = body.cL3
+                app.energyMeter.powerL1 = body.pL1
+                app.energyMeter.powerL2 = body.pL2
+                app.energyMeter.powerL3 = body.pL3
+                app.energyMeter.totalPower = body.tP
+                app.energyMeter.reactivePowerL1 = body.rPL1
+                app.energyMeter.reactivePowerL2 = body.rPL2
+                app.energyMeter.reactivePowerL3 = body.rPL3
+                app.energyMeter.totalReactivePower = body.tRP
+                app.energyMeter.apparentPowerL1 = body.aPL1
+                app.energyMeter.apparentPowerL2 = body.aPL2
+                app.energyMeter.apparentPowerL3 = body.aPL3
+                app.energyMeter.totalApparentPower = body.tAP
+                app.energyMeter.powerFactorL1 = body.pFL1
+                app.energyMeter.powerFactorL2 = body.pFL2
+                app.energyMeter.powerFactorL3 = body.pFL3
+                app.energyMeter.totalPowerFactor = body.tPF
+                app.energyMeter.frequency = body.f
+                app.energyMeter.importActiveEnergy = body.iAE
+                app.energyMeter.exportActiveEnergy = body.eAE
+                app.energyMeter.importReactiveEnergy = body.iRE
+                app.energyMeter.exportReactiveEnergy = body.eRE
             });
-        }, 3000);
+        }, 5500);
     },
     filters: {
         formatNumber(value) {
@@ -246,13 +274,22 @@ export default {
     },
     methods: {
         goToSettingsPage() {
-            window.location.href = '/params';
+            window.location.href = '/config';
         },
         goToUpdatePage() {
             window.location.href = '/update';
         },
         restartModule() {
             window.location.href = '/restart';
+        },
+        goToActualConfigPage() {
+            window.location.href = '/actual-config';
+        },
+        goToEnergyValuesPage() {
+            window.location.href = '/energy';
+        },
+        goToInfoPage() {
+            window.location.href = '/info';
         }
     }
 }
