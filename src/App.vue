@@ -229,7 +229,7 @@ export default {
     },
     created: function () {
         const app = this;
-        setInterval(function () {
+        let readValues = function () {
             axios.get('/energy')
                     .then(function (response) {
                         return response.data;
@@ -265,7 +265,9 @@ export default {
                 app.energyMeter.importReactiveEnergy = body.iRE
                 app.energyMeter.exportReactiveEnergy = body.eRE
             });
-        }, 5500);
+        }
+        setInterval(readValues, 5500);
+        readValues();
     },
     filters: {
         formatNumber(value) {
