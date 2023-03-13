@@ -299,7 +299,7 @@ export default {
 
 <style>
 html, body {
-    height: 100%;
+    height: 170%;
 }
 
 .phase-value {
